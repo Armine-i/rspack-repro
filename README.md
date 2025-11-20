@@ -13,7 +13,7 @@ This project demonstrates Rspack with TypeScript configuration and persistent ca
 ## Project Structure
 
 ```
-rspack-ts-demo/
+rspack-repro/
 ├── src/
 │   ├── components/
 │   │   └── HelloWorld.tsx    # Uses @utils/* alias
@@ -21,11 +21,14 @@ rspack-ts-demo/
 │   │   └── greeting.ts       # Utility functions
 │   ├── App.tsx               # Uses @components/* alias
 │   └── index.tsx             # Uses @/* alias
+├── rspack/
+│   ├── rspack.config.ts      # TypeScript Rspack config
+│   └── util.ts               # Rspack utilities
 ├── public/
 │   └── index.html
-├── rspack.config.ts          # TypeScript config
 ├── tsconfig.json             # With path aliases
 ├── tsconfig.node.json
+├── .gitignore
 └── package.json
 ```
 
@@ -47,25 +50,23 @@ npm run build:clean
 
 ## Observing Persistent Cache Warnings
 
-The persistent cache is configured in `rspack.config.ts:53-65` with profile logging and verbose infrastructure logging enabled. To see warnings about TypeScript paths:
+The persistent cache is configured in `rspack/rspack.config.ts` with profile logging and verbose infrastructure logging enabled. To see warnings about TypeScript paths:
 
 1. Run the first build:
    ```bash
    npm run build
    ```
 
-2. Run a second build (using cache):
-   ```bash
-   npm run build
+2. Look for the following warning in the console output:
    ```
-
-3. Look for warnings in the console output related to TypeScript path resolution and the persistent cache mechanism.
-
-The warnings typically appear when the persistent cache tries to resolve modules using TypeScript path aliases defined in `tsconfig.json`.
+   LOG from rspack.persistentCache
+   <w> BuildDependencies: can't resolve ./util in /Users/airadian/rspack-repro/rspack.
+   <w> - NotFound("./util")
+   ```
 
 ## TypeScript Path Aliases
 
-This project uses three path aliases defined in both `tsconfig.json` and `rspack.config.ts`:
+This project uses three path aliases defined in both `tsconfig.json` and `rspack/rspack.config.ts`:
 
 - `@/*` → `src/*`
 - `@components/*` → `src/components/*`
@@ -78,4 +79,4 @@ These aliases are used throughout the codebase:
 
 ## Cache Location
 
-The persistent cache is stored in `.rspack_cache/` directory at the project root.
+The persistent cache is stored in `node_modules/.rspack` directory at the project root.
