@@ -1,9 +1,9 @@
 import { defineConfig } from '@rspack/cli';
 import type { Configuration } from '@rspack/core';
 import * as path from 'path';
-import { BogusPlugin } from './util';
 
 const config: Configuration = defineConfig({
+  mode: 'development',
   entry: {
     main: path.resolve(__dirname, '../src/index.tsx'),
   },

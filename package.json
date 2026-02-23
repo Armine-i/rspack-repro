@@ -8,8 +8,8 @@
     "build:clean": "rm -rf dist .rspack_cache && rspack build -c rspack/rspack.config.ts"
   },
   "devDependencies": {
-    "@rspack/cli": "^1.1.8",
-    "@rspack/core": "^1.1.8",
+    "@rspack/cli": "1.7.6",
+    "@rspack/core": "1.7.6",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "typescript": "^5.7.2",
